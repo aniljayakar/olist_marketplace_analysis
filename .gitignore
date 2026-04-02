@@ -1,0 +1,23 @@
+# Raw and processed data — too large, sourced from Kaggle
+data/raw/
+data/processed/
+data_raw/
+data_clean/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+venv/
+*.egg-info/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Planning docs
+project.docx
