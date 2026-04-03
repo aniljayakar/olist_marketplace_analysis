@@ -14,3 +14,7 @@ Business definitions:
 Key assumptions / caveats:
   This file is intentionally left as a placeholder until review summary work begins.
 */
+
+SELECT*
+FROM fact_order_items_clean;
+
