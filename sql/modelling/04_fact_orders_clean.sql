@@ -114,3 +114,18 @@ GROUP BY
     late_delivery_flag
 ORDER BY
     late_delivery_flag;
+
+SELECT
+    customer_state,
+    COUNT(*) AS total_delivered_orders,
+    SUM(late_delivery_flag) AS late_delivered_orders,
+    ROUND(100.0 * SUM(late_delivery_flag) / COUNT(*), 2) AS late_delivery_rate_pct,
+    ROUND(AVG(delivery_days), 1) AS avg_delivery_days
+FROM fact_orders_clean
+WHERE order_status = 'delivered'
+GROUP BY
+    customer_state
+HAVING COUNT(*) >= 100
+ORDER BY
+    late_delivery_rate_pct DESC,
+    total_delivered_orders DESC;
