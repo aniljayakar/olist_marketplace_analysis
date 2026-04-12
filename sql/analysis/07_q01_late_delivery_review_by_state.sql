@@ -184,6 +184,13 @@ ORDER BY
     delivered_orders DESC
 LIMIT 3;
 
-/* States with materially higher late delivery rates tend to show weaker customer review scores,
- suggesting an association between logistics performance and customer satisfaction. */
+/* Delivery performance varied sharply by state. The national late-delivery rate was 8.11%, but 
+AL, MA, and PI were all materially above that benchmark at 23.93%, 19.67%, and 15.97% respectively. 
+These states also posted weaker average review scores than stronger-performing states such as SP and PR, 
+suggesting a meaningful association between logistics reliability and customer experience.
+
+AL stands out as the clearest operational risk. It combined the highest late-delivery rate 
+in the dataset with a below-4.0 average review score across 397 delivered orders, which makes 
+it more than a small-sample outlier. The result points to regional delivery performance as a 
+likely pressure point worth further investigation. */
 
