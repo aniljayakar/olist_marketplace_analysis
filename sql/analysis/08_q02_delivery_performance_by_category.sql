@@ -77,3 +77,61 @@ WHERE delivered_order_items >= 100
 ORDER BY
     late_delivered_items DESC,
     delivered_order_items DESC;
+
+
+-- Q-02 Support: Delivery performance by business segment
+/*
+Purpose:
+ Roll product-category delivery performance up to business segment level
+ using category_mapping. This shows whether delivery issues cluster across
+ broader product groups rather than only isolated raw categories.
+
+Grain:
+ One row per business_segment.
+
+Primary inputs:
+ fact_order_items_clean
+ category_mapping
+
+Important caveat:
+ Delivery fields are inherited from the parent order. This means the metric
+ represents the share of delivered item rows in each segment whose parent
+ orders were delivered late, not true item-level logistics performance.
+
+Filters:
+ Delivered orders only, because late-delivery rate and delivery duration are
+ only meaningful for fulfilled orders.
+*/
+
+WITH segment_delivery AS (
+    SELECT
+        cm.business_segment,
+        COUNT(*) AS delivered_order_items,
+        COUNT(DISTINCT foi.order_id) AS delivered_orders_containing_segment,
+        SUM(foi.late_delivery_flag) AS late_delivered_items,
+        ROUND(
+            100.0 * SUM(foi.late_delivery_flag)::numeric / COUNT(*),
+            2
+        ) AS late_delivery_rate_pct,
+        ROUND(AVG(foi.delivery_days)::numeric, 2) AS avg_delivery_days,
+        ROUND(SUM(foi.item_gmv)::numeric, 2) AS segment_gmv
+    FROM fact_order_items_clean AS foi
+    LEFT JOIN category_mapping AS cm
+        ON foi.product_category_english = cm.product_category_english
+    WHERE foi.order_status = 'delivered'
+      AND foi.delivery_days IS NOT NULL
+    GROUP BY
+        cm.business_segment
+)
+SELECT
+    business_segment,
+    delivered_order_items,
+    delivered_orders_containing_segment,
+    late_delivered_items,
+    late_delivery_rate_pct,
+    avg_delivery_days,
+    segment_gmv
+FROM segment_delivery
+ORDER BY
+    late_delivery_rate_pct DESC,
+    delivered_order_items DESC;

@@ -1,7 +1,4 @@
 
-
-
-
 -- 07_q01_late_delivery_review_by_state.sql
 
 -- Q-01 Base analysis: late delivery rate and average review score by state
@@ -167,7 +164,6 @@ ranked_states AS (
     FROM state_metrics sm
     CROSS JOIN national_benchmark nb
 )
-
 SELECT
     customer_state,
     delivered_orders,
@@ -194,3 +190,59 @@ in the dataset with a below-4.0 average review score across 397 delivered orders
 it more than a small-sample outlier. The result points to regional delivery performance as a 
 likely pressure point worth further investigation. */
 
+
+-- Q-01 Support: Late delivery and review by customer region
+/*
+Purpose:
+ Roll state-level operational health up to customer region using
+ brazil_state_reference. This shows whether delivery and review issues
+ cluster geographically beyond individual state codes.
+
+Grain:
+ One row per customer region.
+
+Primary inputs:
+ fact_orders_clean
+ review_summary
+ brazil_state_reference
+
+Key assumptions / caveats:
+ Only delivered orders are included because late delivery and delivery duration
+ are only meaningful for fulfilled orders.
+ Review score is joined at order grain to avoid duplication.
+ Region is based on customer_state, so this is demand-side geography.
+*/
+
+WITH region_operational_metrics AS (
+    SELECT
+        bsr.region,
+        COUNT(*) AS delivered_orders,
+        SUM(foc.late_delivery_flag) AS late_delivered_orders,
+        COUNT(*) FILTER (WHERE rs.avg_review_score IS NOT NULL) AS reviewed_orders,
+        ROUND(
+            100.0 * SUM(foc.late_delivery_flag)::numeric / COUNT(*),
+            2
+        ) AS late_delivery_rate_pct,
+        ROUND(AVG(rs.avg_review_score)::numeric, 2) AS avg_review_score,
+        ROUND(AVG(foc.delivery_days)::numeric, 2) AS avg_delivery_days
+    FROM fact_orders_clean AS foc
+    LEFT JOIN review_summary AS rs
+        ON foc.order_id = rs.order_id
+    LEFT JOIN brazil_state_reference AS bsr
+        ON foc.customer_state = bsr.state_code
+    WHERE foc.order_status = 'delivered'
+    GROUP BY
+        bsr.region
+)
+SELECT
+    region,
+    delivered_orders,
+    late_delivered_orders,
+    reviewed_orders,
+    late_delivery_rate_pct,
+    avg_review_score,
+    avg_delivery_days
+FROM region_operational_metrics
+ORDER BY
+    late_delivery_rate_pct DESC,
+    delivered_orders DESC;
