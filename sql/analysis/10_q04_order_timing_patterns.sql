@@ -25,15 +25,8 @@ Key assumptions / caveats:
 WITH order_timing AS (
     SELECT
         order_id,
-
-        -- Numeric day of week used for correct sorting.
-        -- PostgreSQL EXTRACT(DOW) returns 0 = Sunday through 6 = Saturday.
         EXTRACT(DOW FROM order_purchase_timestamp) AS purchase_dow_num,
-
-        -- Readable day name for presentation.
         TRIM(TO_CHAR(order_purchase_timestamp, 'Day')) AS purchase_day_of_week,
-
-        -- Hour of day from 0 to 23.
         EXTRACT(HOUR FROM order_purchase_timestamp) AS purchase_hour
     FROM fact_orders_clean
 )
@@ -50,8 +43,6 @@ GROUP BY
 ORDER BY
     purchase_dow_num,
     purchase_hour;
-
---Busiest hours overall
 SELECT
     EXTRACT(HOUR FROM order_purchase_timestamp) AS purchase_hour,
     COUNT(*) AS orders_placed
@@ -83,12 +74,3 @@ GROUP BY
     purchase_day_of_week
 ORDER BY
     purchase_dow_num;
-
-/* Order timing patterns show a clear weekday daytime demand curve. Order volume remains low overnight, 
-begins to rise through the morning, and peaks from late morning to late afternoon, with 16:00 recording 
-the highest total order count. Demand is also concentrated early in the work week, with Monday, Tuesday, 
-and Wednesday outperforming all other days, while Saturday is the lowest-volume day overall.
-
-This pattern suggests that peak marketplace demand is driven more by weekday daytime shopping behaviour
- than by late-night or weekend activity. From an operational perspective, that makes late morning through
-  evening on weekdays the most important window for platform monitoring, support coverage, and campaign execution. */

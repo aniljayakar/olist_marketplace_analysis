@@ -93,9 +93,3 @@ GROUP BY
 ORDER BY
     total_gmv DESC;
 
-
-/* After filtering to sellers with at least 20 reviewed delivered orders, 800 sellers remained for stable 
-quadrant analysis. Of these, 201 qualified as high-volume sellers based on the 75th percentile volume threshold, 
-and 98 of those 201 fell into the High volume / Low rating quadrant. That is 48.8% of the high-volume seller group.
-More importantly, those 98 sellers account for 30.36% of GMV in the quadrant dataset, which makes them commercially 
-important underperformers rather than just noisy edge cases. */

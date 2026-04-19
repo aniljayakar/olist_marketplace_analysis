@@ -1,4 +1,3 @@
-
 -- 07_q01_late_delivery_review_by_state.sql
 
 -- Q-01 Base analysis: late delivery rate and average review score by state
@@ -153,11 +152,7 @@ ranked_states AS (
         sm.late_delivery_rate,
         sm.avg_review_score,
         nb.national_late_delivery_rate,
-
-        -- Compare each state to the national baseline.
         ROUND(sm.late_delivery_rate - nb.national_late_delivery_rate, 4) AS late_rate_vs_national,
-
-        -- Rank states from worst to best based on late delivery rate.
         RANK() OVER (
             ORDER BY sm.late_delivery_rate DESC
         ) AS late_delivery_rank
@@ -179,16 +174,6 @@ ORDER BY
     late_delivery_rate DESC,
     delivered_orders DESC
 LIMIT 3;
-
-/* Delivery performance varied sharply by state. The national late-delivery rate was 8.11%, but 
-AL, MA, and PI were all materially above that benchmark at 23.93%, 19.67%, and 15.97% respectively. 
-These states also posted weaker average review scores than stronger-performing states such as SP and PR, 
-suggesting a meaningful association between logistics reliability and customer experience.
-
-AL stands out as the clearest operational risk. It combined the highest late-delivery rate 
-in the dataset with a below-4.0 average review score across 397 delivered orders, which makes 
-it more than a small-sample outlier. The result points to regional delivery performance as a 
-likely pressure point worth further investigation. */
 
 
 -- Q-01 Support: Late delivery and review by customer region

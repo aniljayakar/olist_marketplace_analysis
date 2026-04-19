@@ -160,19 +160,4 @@ FROM ranked_categories
 ORDER BY
     category_gmv DESC;
 
-/*
-Business interpretation:
-GMV is concentrated across a small number of broad business segments.
-Home & Living is the largest segment, accounting for 27.13% of marketplace GMV,
-followed by Leisure, Gifts & Hobbies at 17.53% and Beauty, Health & Baby at 15.05%.
-Together, the top three segments contribute 59.71% of total GMV, and the top four
-segments contribute 73.63%.
-
-This suggests that marketplace commercial performance depends heavily on a limited
-set of product segments rather than being evenly distributed across the catalogue.
-The raw category drilldown remains useful for identifying which categories drive
-each segment, but the segment view provides the cleaner business-level concentration
-story.
-*/
-
 

@@ -106,12 +106,3 @@ FROM seller_ranked
 ORDER BY
     seller_rank
 LIMIT 50;
-
-
-/*For seller concentration, I aggregated item-level GMV to seller grain, ranked sellers by GMV, 
-and measured how much marketplace value sat with the top seller cohorts. The results showed strong 
-concentration: the top 10% of sellers generated 66.68% of total GMV, while the top 20% generated 81.93%. 
-The remaining 80% of sellers contributed only 18.07% of GMV. The cumulative distribution showed that no 
-single seller dominated the marketplace, but a relatively small top cohort carried a disproportionate share 
-of commercial value. This suggests meaningful supply-side concentration risk, where performance issues or 
-seller churn in the leading cohort could materially affect marketplace GMV. */

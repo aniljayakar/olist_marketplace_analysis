@@ -147,10 +147,3 @@ ORDER BY
     outlier_rate DESC,
     delivered_orders DESC;
 
-/* National delivery duration is right-skewed. The median delivered order arrives in 10 days,
- while the 95th percentile reaches 29 days and the slowest orders take as long as 210 days. 
- Using an IQR-derived threshold of 30 days, 4.9% of delivered orders were classified as long-delay outliers.
-
-These outliers are concentrated in a small group of states rather than evenly distributed across the marketplace. 
-After excluding low-volume states with fewer than 100 delivered orders, AM, AL, PA, MA, and CE showed the highest outlier rates. 
-Larger states such as SP, PR, and MG remained far lower, suggesting that long-tail delivery risk is heavily regional rather than marketplace-wide. */

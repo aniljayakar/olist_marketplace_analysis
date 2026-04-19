@@ -57,7 +57,7 @@ FROM payment_type_with_share
 ORDER BY
     total_orders DESC;
 
-
+--Boleto payment analysis
 SELECT
     COUNT(*) AS total_orders,
     SUM(
@@ -75,11 +75,3 @@ LEFT JOIN payment_summary ps
     ON fo.order_id = ps.order_id
 WHERE ps.primary_payment_type = 'boleto';
 
-/* Payment mix is dominated by credit cards, which account for 75.4% of orders, followed by Boleto at 19.9%. 
-Voucher and debit card usage are much smaller at 3.17% and 1.54% respectively.
-
-At the order level, Boleto does not show a higher cancellation rate than credit card in this dataset. 
-Credit card orders show a 0.58% cancellation rate, compared with 0.48% for Boleto. Voucher orders show 
-the highest cancellation rate at 2.79%, but their share of total orders is relatively small. This suggests 
-that payment-method risk is more nuanced than the initial hypothesis and that Boleto, while important in volume terms,
- is not the clearest source of cancellation risk under the current classification logic. */

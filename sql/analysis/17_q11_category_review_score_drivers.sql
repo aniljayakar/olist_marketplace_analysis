@@ -142,15 +142,7 @@ GROUP BY
 ORDER BY
     avg_review_score;
 
-/* Category-level satisfaction showed a modest but consistent relationship with delivery performance. 
-Lower-rated categories tended to have both higher late-delivery rates and longer average delivery times
- than mid-band and high-rated categories. The clearest separation appeared in delivery duration: low-rated
-  categories averaged 13.87 delivery days versus 12.13 for the mid band. This suggests logistics performance 
-  is associated with weaker category satisfaction, but the size of the gap indicates delivery is likely only 
-  one part of the explanation. */
-
-
-  -- Q-11 Support: Review and delivery performance by business segment
+-- Q-11 Support: Review and delivery performance by business segment
 /*
 Purpose:
  Roll category-level review and delivery analysis up to business segment level

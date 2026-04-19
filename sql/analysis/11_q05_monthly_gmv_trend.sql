@@ -37,16 +37,6 @@ GROUP BY
 ORDER BY
     purchase_month;
 
-
-/*Monthly GMV grew strongly across 2017 and into early 2018, rising from roughly 137k BRL 
-in January 2017 to a peak above 1.15M BRL between March and May 2018. Order volume increased
- alongside GMV, while average order value remained relatively stable, suggesting that growth 
- was driven more by expanding order volume than by major basket-size changes.
-
-The final month in the raw series showed extremely low order coverage, so the main trend view 
-excludes the incomplete trailing period. This avoids overstating a late-series decline that appears
- to be caused by dataset coverage rather than confirmed marketplace contraction. */
-
 -- 11_q05_monthly_gmv_trend.sql
 -- Follow-up cut: month-over-month GMV growth
 
@@ -82,8 +72,3 @@ SELECT
 FROM monthly_gmv_with_lag
 ORDER BY
     purchase_month;
-
-/* Monthly GMV expanded rapidly through 2017 and into early 2018, with especially strong acceleration 
-in late 2017 and early 2018. Growth appears to have been driven mainly by order volume rather than major 
-shifts in average order value, since AOV remained relatively stable across most months. By spring 2018,
- GMV reached a high plateau above 1.1M BRL per month, after which month-over-month growth became smaller and more volatile. */
