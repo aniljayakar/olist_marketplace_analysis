@@ -1,0 +1,6 @@
+region,delivered_orders,late_delivered_orders,reviewed_orders,late_delivery_rate_pct,avg_review_score,avg_delivery_days
+Northeast,9044,1296,8975,14.33,3.97,19.95
+North,1796,176,1779,9.8,4.03,22.54
+Central-West,5624,448,5594,7.97,4.13,14.95
+Southeast,66200,4932,65738,7.45,4.18,10.69
+South,13814,974,13746,7.05,4.19,13.98

@@ -1,0 +1,6 @@
+region,total_orders,total_gmv,avg_order_value,avg_items_per_order
+Southeast,67336,10159955.08,150.88,1.14
+South,13996,2279510.9,162.87,1.15
+Northeast,9305,1872583.31,201.24,1.12
+Central-West,5728,1013752.38,176.98,1.15
+North,1834,409725.36,223.41,1.12

@@ -1,0 +1,5 @@
+seller_quadrant,seller_count,total_gmv,gmv_share_pct,avg_review_score,avg_delivered_orders
+High volume / High rating,103,4122333.6,32.3,4.31,259.75
+High volume / Low rating,98,3874698.75,30.36,3.93,319.15
+Low volume / High rating,331,2650898.0,20.77,4.41,45.83
+Low volume / Low rating,268,2116527.85,16.58,3.9,47.11

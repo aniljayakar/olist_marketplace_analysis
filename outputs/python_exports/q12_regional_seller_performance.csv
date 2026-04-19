@@ -1,0 +1,5 @@
+region,active_sellers,delivered_orders,reviewed_orders,avg_review_score,late_delivery_rate_pct,avg_delivery_days,seller_gmv
+Southeast,2190,81687,81127,4.13,8.36,12.29,12112256.61
+Northeast,54,1535,1526,4.17,10.1,14.65,506383.96
+South,644,13128,13040,4.19,5.97,13.13,2571649.71
+Central-West,78,1444,1441,4.21,5.33,12.72,221356.58

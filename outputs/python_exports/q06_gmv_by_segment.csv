@@ -1,0 +1,8 @@
+business_segment,segment_gmv,segment_gmv_share,cumulative_gmv_share,order_items,orders_containing_segment,gmv_rank
+Home & Living,4268515.97,0.2713,0.2713,34089,28135,1
+"Leisure, Gifts & Hobbies",2758769.9,0.1753,0.4466,18535,17063,2
+"Beauty, Health & Baby",2368667.5,0.1505,0.5971,16117,14828,3
+Electronics & Tech,2190832.98,0.1392,0.7363,17172,15305,4
+Fashion & Accessories,1711119.31,0.1087,0.845,9691,9032,5
+General Merchandise & Essentials,1263465.11,0.0803,0.9253,9263,8304,6
+"Office, Industry & Construction",1174156.26,0.0746,0.9999,7234,6056,7
