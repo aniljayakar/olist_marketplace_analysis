@@ -183,7 +183,7 @@ Python was used as a reproducible export and chart-preparation layer. The analyt
 
 ## Next Steps
 
-If this analysis were extended into a production marketplace analytics workflow, the next steps would be:
+If this were extended into a production workflow, the next steps would be:
 
 - **Build a seller-level intervention table:** The high-volume / low-rating seller group contains 98 sellers and accounts for 30.36% of GMV in the seller-quality view. The immediate next step would be a seller-level drilldown ranking sellers by GMV at risk, review score, late delivery rate, and order volume so account managers can prioritise outreach.
 - **Extend payment abandonment analysis:** The boleto cancellation analysis could be expanded by state, order value band, product segment, and customer region to identify whether payment-related abandonment is concentrated in specific customer or transaction groups.
