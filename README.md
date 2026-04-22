@@ -93,6 +93,16 @@ A key part of this project was choosing the correct table grain for each type of
 
 Separating order-grain and item-grain analysis helped prevent inflated metrics and ensured that each question used the correct base table.
 
+## Key Analytical Decisions
+
+Several modelling and analysis decisions were made to keep the metrics reliable and business-facing:
+
+- **Separated order grain from item grain:** Delivery performance, customer region analysis, and review joins were handled at order grain, while category, segment, and seller analysis used item grain. This prevented category and seller metrics from distorting order-level outcomes.
+- **Pre-aggregated reviews before joining:** Reviews were summarised into `review_summary` at order grain before joining to fact tables. This avoided fan-out from raw review rows and kept review metrics aligned with the correct denominator.
+- **Used business segments instead of only raw categories:** Raw Olist product categories were mapped into analyst-defined business segments to make the dashboard easier for stakeholders to interpret.
+- **Prioritised seller risk over generic customer segmentation:** Since marketplace value and performance risk were more clearly concentrated around sellers, the dashboard focuses on seller quality, seller concentration, delivery reliability, and segment exposure rather than generic customer segmentation.
+- **Used Python as a repeatable export layer:** PostgreSQL remained the analytical source of truth, while Python was used to export validated SQL outputs into reproducible CSVs and chart assets for reporting.
+
 ## Project Workflow
 
 ```text
@@ -156,6 +166,13 @@ olist_marketplace_analysis/
 
 Database credentials should be configured locally using `.env.example` as a template. Real credentials are not committed.
 
+## Scope Notes
+
+The payment mix and boleto cancellation analysis was included as a supporting business question, but the main dashboard focuses on marketplace risk across sellers, delivery, and product segments. A deeper fintech-focused version of the project could extend the boleto analysis into a payment abandonment view by state, order value band, product segment, and customer region.
+
+Python was used as a reproducible export and chart-preparation layer. The analytical source of truth remains PostgreSQL because the core questions involved table-grain control, joins, aggregation, ranking, and validation.
+
+
 ## Limitations
 
 - The dataset is historical and does not represent live marketplace performance.
@@ -166,10 +183,10 @@ Database credentials should be configured locally using `.env.example` as a temp
 
 ## Next Steps
 
-If this were extended into a production analytics workflow, the next steps would be:
+If this analysis were extended into a production marketplace analytics workflow, the next steps would be:
 
-- Materialise key SQL outputs as scheduled database views or reporting tables.
-- Add seller-level drilldowns for account management prioritisation.
-- Include monthly refresh logic to monitor whether interventions reduce late delivery and low review scores.
-- Add margin or cost data to prioritise not only GMV exposure but profitability exposure.
-- Expand customer experience analysis using review text sentiment.
+- **Build a seller-level intervention table:** The high-volume / low-rating seller group contains 98 sellers and accounts for 30.36% of GMV in the seller-quality view. The immediate next step would be a seller-level drilldown ranking sellers by GMV at risk, review score, late delivery rate, and order volume so account managers can prioritise outreach.
+- **Extend payment abandonment analysis:** The boleto cancellation analysis could be expanded by state, order value band, product segment, and customer region to identify whether payment-related abandonment is concentrated in specific customer or transaction groups.
+- **Investigate Northeast delivery failures:** The Northeast has the highest regional late-delivery rate and weakest average review score. A deeper analysis would compare customer region, seller region, carrier performance, and delivery distance to separate seller-side issues from logistics network constraints.
+- **Measure intervention impact:** For seller coaching or logistics interventions, define pre/post measurement windows and compare treated sellers or regions against a similar control group using late delivery rate, review score, and GMV retention.
+- **Add margin or cost data:** GMV identifies commercial exposure, but profitability data would help prioritise interventions based on financial impact, not transaction value alone.
